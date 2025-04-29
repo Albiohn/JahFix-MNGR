@@ -83,3 +83,12 @@ class Aprobacion(models.Model):
 
     def __str__(self):
         return f"Aprobación {self.estado_aprobacion} - ${self.costo_estimado}"
+
+class MetodoPago(models.Model):
+    tipo_pago = models.CharField(max_length=20)
+    monto = models.DecimalField(max_digits=10, decimal_places=5)
+    fecha_pago = models.DateField()
+    aprobacion = models.OneToOneField(Aprobacion, on_delete=models.CASCADE, related_name="metodo_pago")
+
+    def __str__(self):
+        return f"{self.tipo_pago} - ${self.monto} ({self.fecha_pago})" 
